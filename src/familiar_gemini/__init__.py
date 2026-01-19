@@ -1,4 +1,4 @@
-"""gemini cli agent plugin for familiar\"\"\"
+"""gemini cli agent plugin for familiar"""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from familiar.agents import Agent
 
 
 class GeminiAgent(Agent):
-    """agent that uses the gemini cli\"\"\"
+    """agent that uses the gemini cli"""
 
     name = "gemini"
     output_file = "GEMINI.md"
