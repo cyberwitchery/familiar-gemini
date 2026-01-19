@@ -1,12 +1,12 @@
 [project]
 name = "familiar-gemini"
 version = "0.1.0"
-description = "Gemini CLI agent plugin for familiar"
+description = "gemini cli agent plugin for familiar"
 readme = "readme.md"
 license = "MIT"
 requires-python = ">=3.10"
 authors = [
-    { name = "cyberwitchery labs", email = "contact@cyberwitchery.com" }
+    { name = "cyberwitchery lab", email = "contact@cyberwitchery.com" }
 ]
 keywords = ["ai", "agents", "gemini", "familiar"]
 dependencies = ["familiar-cli>=0.1.0"]

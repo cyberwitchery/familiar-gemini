@@ -1,4 +1,7 @@
-.PHONY: dev format lint test clean
+.PHONY: install dev format lint test coverage ci build clean publish
+
+install:
+	pip install .
 
 dev:
 	pip install -e ".[dev]"
@@ -14,6 +17,19 @@ lint:
 test:
 	pytest -q
 
+coverage:
+	pytest --cov-report=term-missing --cov-report=html
+
+ci:
+	pytest --cov-report=term-missing --cov-report=xml
+
+build: clean
+	python -m build
+
 clean:
-	rm -rf build/ dist/ *.egg-info/ .pytest_cache/ .mypy_cache/ .ruff_cache/
+	rm -rf dist/ build/ *.egg-info src/*.egg-info
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+	find . -type f -name "*.pyc" -delete 2>/dev/null || true
+
+publish: build
+	twine upload dist/*

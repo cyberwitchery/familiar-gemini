@@ -1,4 +1,4 @@
-"""tests for familiar-gemini."""
+"""tests for familiar-gemini"""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from familiar_gemini import GeminiAgent
 
 
 class TestGeminiAgent:
-    """tests for gemini agent."""
+    """tests for gemini agent"""
 
     def test_is_agent_subclass(self):
         assert issubclass(GeminiAgent, Agent)
