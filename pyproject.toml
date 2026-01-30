@@ -1,6 +1,6 @@
 [project]
 name = "familiar-gemini"
-version = "0.1.0"
+version = "0.1.1"
 description = "gemini cli agent plugin for familiar"
 readme = "readme.md"
 license = "MIT"
@@ -9,7 +9,7 @@ authors = [
     { name = "cyberwitchery lab", email = "contact@cyberwitchery.com" }
 ]
 keywords = ["ai", "agents", "gemini", "familiar"]
-dependencies = ["familiar-cli>=0.1.0"]
+dependencies = ["familiar-cli>=0.3.1"]
 
 [project.urls]
 Homepage = "https://github.com/cyberwitchery/familiar-gemini"
