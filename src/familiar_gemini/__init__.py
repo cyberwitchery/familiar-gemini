@@ -14,9 +14,14 @@ class GeminiAgent(Agent):
     name = "gemini"
     output_file = "GEMINI.md"
 
-    def run(self, repo_root: Path, prompt: str, headless: bool) -> int:
+    def run(
+        self, repo_root: Path, prompt: str, headless: bool, auto: bool = False
+    ) -> int:
+        cmd = ["gemini"]
+        if auto:
+            cmd.append("--approval-mode=yolo")
         if headless:
-            cmd = ["gemini", "-p", prompt]
+            cmd.extend(["-p", prompt])
         else:
-            cmd = ["gemini", "-i", prompt]
+            cmd.extend(["-i", prompt])
         return subprocess.call(cmd, cwd=repo_root)

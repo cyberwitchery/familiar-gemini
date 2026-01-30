@@ -1,5 +1,9 @@
 # changelog
 
+## 0.1.1
+
+- **auto mode**: added `auto` parameter to `GeminiAgent.run()`, passes `--approval-mode=yolo` flag to gemini cli when enabled.
+
 ## 0.1.0
 
 initial release
