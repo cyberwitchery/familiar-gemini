@@ -1,5 +1,9 @@
 # changelog
 
+## unreleased
+
+- add release SBOM generation and upload (CycloneDX)
+
 ## 0.1.1
 
 - **auto mode**: added `auto` parameter to `GeminiAgent.run()`, passes `--approval-mode=yolo` flag to gemini cli when enabled.
