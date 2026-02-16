@@ -2,6 +2,10 @@
 
 ## unreleased
 
+## 0.2.0 - 2026-02-16
+
+- add gemini skill and subagent path definitions for familiar `--save-skill` and `--save-subagent` support
+- require `familiar-cli>=0.4.0`
 - add release SBOM generation and upload (CycloneDX)
 
 ## 0.1.1

@@ -13,6 +13,8 @@ class GeminiAgent(Agent):
 
     name = "gemini"
     output_file = "GEMINI.md"
+    skill_dir = ".gemini/skills"
+    subagent_dir = ".gemini/subagents"
 
     def run(
         self, repo_root: Path, prompt: str, headless: bool, auto: bool = False

@@ -22,6 +22,27 @@ class TestGeminiAgent:
         agent = GeminiAgent()
         assert agent.output_file == "GEMINI.md"
 
+    def test_supports_skills(self):
+        agent = GeminiAgent()
+        assert agent.supports_skills() is True
+
+    def test_skill_path(self, tmp_path):
+        agent = GeminiAgent()
+        path = agent.skill_path(tmp_path, "review")
+        assert path == tmp_path / ".gemini" / "skills" / "review" / "SKILL.md"
+
+    def test_supports_subagents(self):
+        agent = GeminiAgent()
+        assert agent.supports_subagents() is True
+
+    def test_subagent_path(self, tmp_path):
+        agent = GeminiAgent()
+        path = agent.subagent_path(tmp_path, "python_sec")
+        assert (
+            path
+            == tmp_path / ".gemini" / "subagents" / "python_sec" / "AGENT.md"
+        )
+
     def test_run_headless(self, tmp_path):
         agent = GeminiAgent()
 
@@ -49,7 +70,8 @@ class TestGeminiAgent:
             result = agent.run(tmp_path, "test prompt", headless=False, auto=True)
             assert result == 0
             mock_call.assert_called_once_with(
-                ["gemini", "--approval-mode=yolo", "-i", "test prompt"], cwd=tmp_path
+                ["gemini", "--approval-mode=yolo", "-i", "test prompt"],
+                cwd=tmp_path,
             )
 
     def test_run_returns_exit_code(self, tmp_path):
