@@ -38,10 +38,7 @@ class TestGeminiAgent:
     def test_subagent_path(self, tmp_path):
         agent = GeminiAgent()
         path = agent.subagent_path(tmp_path, "python_sec")
-        assert (
-            path
-            == tmp_path / ".gemini" / "subagents" / "python_sec" / "AGENT.md"
-        )
+        assert path == tmp_path / ".gemini" / "subagents" / "python_sec" / "AGENT.md"
 
     def test_run_headless(self, tmp_path):
         agent = GeminiAgent()
