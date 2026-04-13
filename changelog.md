@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- fix `familiar-cli` version requirement in readme (was `>=0.3.1`, now `>=0.4.0`)
+
 ## 0.2.0 - 2026-02-16
 
 - add gemini skill and subagent path definitions for familiar `--save-skill` and `--save-subagent` support
