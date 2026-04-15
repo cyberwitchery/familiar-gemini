@@ -71,9 +71,27 @@ class TestGeminiAgent:
                 cwd=tmp_path,
             )
 
+    def test_run_headless_auto(self, tmp_path):
+        agent = GeminiAgent()
+
+        with patch("familiar_gemini.subprocess.call", return_value=0) as mock_call:
+            result = agent.run(tmp_path, "test prompt", headless=True, auto=True)
+            assert result == 0
+            mock_call.assert_called_once_with(
+                ["gemini", "--approval-mode=yolo", "-p", "test prompt"],
+                cwd=tmp_path,
+            )
+
     def test_run_returns_exit_code(self, tmp_path):
         agent = GeminiAgent()
 
         with patch("familiar_gemini.subprocess.call", return_value=42):
             result = agent.run(tmp_path, "prompt", headless=True)
             assert result == 42
+
+    def test_run_interactive_returns_exit_code(self, tmp_path):
+        agent = GeminiAgent()
+
+        with patch("familiar_gemini.subprocess.call", return_value=1):
+            result = agent.run(tmp_path, "prompt", headless=False)
+            assert result == 1
