@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- **configurable approval mode**: `approval_mode` parameter on `GeminiAgent.run()` and `FAMILIAR_GEMINI_APPROVAL_MODE` env var allow overriding the default `yolo` mode (valid: `yolo`, `prompt`, `reject`)
 - fix `familiar-cli` version requirement in readme (was `>=0.3.1`, now `>=0.4.0`)
 
 ## 0.2.0 - 2026-02-16
