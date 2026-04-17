@@ -150,3 +150,36 @@ class TestGeminiAgent:
             result = agent.run(tmp_path, "p", headless=True, approval_mode="prompt")
             assert result == 0
             mock_call.assert_called_once_with(["gemini", "-p", "p"], cwd=tmp_path)
+
+    def test_run_auto_invalid_approval_mode_env(self, tmp_path, monkeypatch):
+        monkeypatch.setenv("FAMILIAR_GEMINI_APPROVAL_MODE", "bogus")
+        agent = GeminiAgent()
+
+        with pytest.raises(ValueError, match="invalid approval mode"):
+            agent.run(tmp_path, "p", headless=True, auto=True)
+
+    def test_run_auto_empty_env_falls_to_default(self, tmp_path, monkeypatch):
+        monkeypatch.setenv("FAMILIAR_GEMINI_APPROVAL_MODE", "")
+        agent = GeminiAgent()
+
+        with patch("familiar_gemini.subprocess.call", return_value=0) as mock_call:
+            result = agent.run(tmp_path, "p", headless=True, auto=True)
+            assert result == 0
+            mock_call.assert_called_once_with(
+                ["gemini", "--approval-mode=yolo", "-p", "p"],
+                cwd=tmp_path,
+            )
+
+    def test_run_auto_valid_param_overrides_invalid_env(self, tmp_path, monkeypatch):
+        monkeypatch.setenv("FAMILIAR_GEMINI_APPROVAL_MODE", "bogus")
+        agent = GeminiAgent()
+
+        with patch("familiar_gemini.subprocess.call", return_value=0) as mock_call:
+            result = agent.run(
+                tmp_path, "p", headless=True, auto=True, approval_mode="reject"
+            )
+            assert result == 0
+            mock_call.assert_called_once_with(
+                ["gemini", "--approval-mode=reject", "-p", "p"],
+                cwd=tmp_path,
+            )
