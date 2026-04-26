@@ -1,6 +1,6 @@
 [project]
 name = "familiar-gemini"
-version = "0.2.0"
+version = "0.3.0"
 description = "gemini cli agent plugin for familiar"
 readme = "readme.md"
 license = "MIT"
