@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import pytest
 from familiar.agents import Agent
+
 from familiar_gemini import GeminiAgent
 
 
