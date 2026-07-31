@@ -34,4 +34,4 @@ familiar invoke gemini refactor src/foo.py --save-skill --skill-name cleanup_ref
 ## requirements
 
 - [familiar-cli](https://github.com/cyberwitchery/familiar) >= 0.4.0
-- [gemini cli](https://github.com/google/gemini-cli) installed and in path
+- [gemini cli](https://github.com/google-gemini/gemini-cli) installed and in path
