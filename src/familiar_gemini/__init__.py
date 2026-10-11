@@ -8,7 +8,7 @@ from pathlib import Path
 
 from familiar.agents import Agent
 
-VALID_APPROVAL_MODES = frozenset({"yolo", "prompt", "reject"})
+VALID_APPROVAL_MODES = frozenset({"default", "auto_edit", "yolo", "plan"})
 DEFAULT_APPROVAL_MODE = "yolo"
 
 

@@ -1,5 +1,9 @@
 # changelog
 
+## unreleased
+
+- fix approval modes to match gemini cli's `--approval-mode`: valid values are now `default`, `auto_edit`, `yolo` and `plan`. `prompt` and `reject` were never accepted by gemini (it exited at startup) and now raise an error instead
+
 ## 0.3.0 - 2026-04-26
 
 - **configurable approval mode**: `approval_mode` parameter on `GeminiAgent.run()` and `FAMILIAR_GEMINI_APPROVAL_MODE` env var allow overriding the default `yolo` mode (valid: `yolo`, `prompt`, `reject`)

@@ -98,7 +98,7 @@ class TestGeminiAgent:
             result = agent.run(tmp_path, "prompt", headless=False)
             assert result == 1
 
-    @pytest.mark.parametrize("mode", ["yolo", "prompt", "reject"])
+    @pytest.mark.parametrize("mode", ["default", "auto_edit", "yolo", "plan"])
     def test_run_auto_approval_mode_param(self, tmp_path, mode):
         agent = GeminiAgent()
 
@@ -113,42 +113,47 @@ class TestGeminiAgent:
             )
 
     def test_run_auto_approval_mode_env(self, tmp_path, monkeypatch):
-        monkeypatch.setenv("FAMILIAR_GEMINI_APPROVAL_MODE", "prompt")
+        monkeypatch.setenv("FAMILIAR_GEMINI_APPROVAL_MODE", "auto_edit")
         agent = GeminiAgent()
 
         with patch("familiar_gemini.subprocess.call", return_value=0) as mock_call:
             result = agent.run(tmp_path, "p", headless=True, auto=True)
             assert result == 0
             mock_call.assert_called_once_with(
-                ["gemini", "--approval-mode=prompt", "-p", "p"],
+                ["gemini", "--approval-mode=auto_edit", "-p", "p"],
                 cwd=tmp_path,
             )
 
     def test_run_auto_approval_mode_param_over_env(self, tmp_path, monkeypatch):
-        monkeypatch.setenv("FAMILIAR_GEMINI_APPROVAL_MODE", "reject")
+        monkeypatch.setenv("FAMILIAR_GEMINI_APPROVAL_MODE", "plan")
         agent = GeminiAgent()
 
         with patch("familiar_gemini.subprocess.call", return_value=0) as mock_call:
             result = agent.run(
-                tmp_path, "p", headless=True, auto=True, approval_mode="prompt"
+                tmp_path, "p", headless=True, auto=True, approval_mode="auto_edit"
             )
             assert result == 0
             mock_call.assert_called_once_with(
-                ["gemini", "--approval-mode=prompt", "-p", "p"],
+                ["gemini", "--approval-mode=auto_edit", "-p", "p"],
                 cwd=tmp_path,
             )
 
-    def test_run_auto_invalid_approval_mode(self, tmp_path):
+    @pytest.mark.parametrize("mode", ["bogus", "prompt", "reject", "auto-edit"])
+    def test_run_auto_invalid_approval_mode(self, tmp_path, mode):
         agent = GeminiAgent()
 
-        with pytest.raises(ValueError, match="invalid approval mode"):
-            agent.run(tmp_path, "p", headless=True, auto=True, approval_mode="bogus")
+        with (
+            patch("familiar_gemini.subprocess.call") as mock_call,
+            pytest.raises(ValueError, match="invalid approval mode"),
+        ):
+            agent.run(tmp_path, "p", headless=True, auto=True, approval_mode=mode)
+        mock_call.assert_not_called()
 
     def test_approval_mode_ignored_without_auto(self, tmp_path):
         agent = GeminiAgent()
 
         with patch("familiar_gemini.subprocess.call", return_value=0) as mock_call:
-            result = agent.run(tmp_path, "p", headless=True, approval_mode="prompt")
+            result = agent.run(tmp_path, "p", headless=True, approval_mode="auto_edit")
             assert result == 0
             mock_call.assert_called_once_with(["gemini", "-p", "p"], cwd=tmp_path)
 
@@ -177,10 +182,10 @@ class TestGeminiAgent:
 
         with patch("familiar_gemini.subprocess.call", return_value=0) as mock_call:
             result = agent.run(
-                tmp_path, "p", headless=True, auto=True, approval_mode="reject"
+                tmp_path, "p", headless=True, auto=True, approval_mode="default"
             )
             assert result == 0
             mock_call.assert_called_once_with(
-                ["gemini", "--approval-mode=reject", "-p", "p"],
+                ["gemini", "--approval-mode=default", "-p", "p"],
                 cwd=tmp_path,
             )
