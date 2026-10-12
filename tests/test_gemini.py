@@ -40,7 +40,13 @@ class TestGeminiAgent:
     def test_subagent_path(self, tmp_path):
         agent = GeminiAgent()
         path = agent.subagent_path(tmp_path, "python_sec")
-        assert path == tmp_path / ".gemini" / "subagents" / "python_sec" / "AGENT.md"
+        assert path == tmp_path / ".gemini" / "agents" / "python_sec.md"
+
+    @pytest.mark.parametrize("name", ["_ops", "_"])
+    def test_subagent_path_rejects_leading_underscore(self, tmp_path, name):
+        agent = GeminiAgent()
+        with pytest.raises(ValueError, match="starts with '_'"):
+            agent.subagent_path(tmp_path, name)
 
     def test_run_headless(self, tmp_path):
         agent = GeminiAgent()
