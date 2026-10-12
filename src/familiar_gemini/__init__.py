@@ -18,7 +18,15 @@ class GeminiAgent(Agent):
     name = "gemini"
     output_file = "GEMINI.md"
     skill_dir = ".gemini/skills"
-    subagent_dir = ".gemini/subagents"
+    subagent_dir = ".gemini/agents"
+
+    def subagent_path(self, repo_root: Path, subagent_name: str) -> Path:
+        if subagent_name.startswith("_"):
+            raise ValueError(
+                f"gemini does not load subagents whose name starts with '_':"
+                f" {subagent_name}"
+            )
+        return repo_root / ".gemini" / "agents" / f"{subagent_name}.md"
 
     def run(
         self,

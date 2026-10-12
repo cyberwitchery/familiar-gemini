@@ -17,12 +17,14 @@ familiar conjure gemini python sec
 familiar invoke gemini bootstrap-python myapp cli
 ```
 
-save composed conjurings as reusable gemini subagents:
+save composed conjurings as reusable gemini subagents, written to `.gemini/agents/<name>.md`:
 
 ```bash
 familiar conjure gemini python sec --save-subagent
 familiar conjure gemini rust infra --save-subagent --subagent-name ship_ops
 ```
+
+gemini ignores agent files whose name starts with `_`, so such subagent names are refused.
 
 save invocations as reusable gemini skills:
 
