@@ -1,6 +1,6 @@
 # changelog
 
-## unreleased
+## 0.3.1 - 2026-10-14
 
 - fix `--save-subagent` to write `.gemini/agents/<name>.md`, where gemini cli loads project agents; `.gemini/subagents/<name>/AGENT.md` was never read. gemini also needs `name` and `description` frontmatter, which familiar-cli 0.6.1 and earlier don't write. subagent names starting with `_` now raise an error, since gemini skips those files
 - fix approval modes to match gemini cli's `--approval-mode`: valid values are now `default`, `auto_edit`, `yolo` and `plan`. `prompt` and `reject` were never accepted by gemini (it exited at startup) and now raise an error instead
