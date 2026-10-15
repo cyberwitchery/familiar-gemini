@@ -16,6 +16,9 @@ class TestGeminiAgent:
     def test_registers_as_familiar_agent(self):
         assert isinstance(load_agents()["gemini"], GeminiAgent)
 
+    def test_supports_skills(self):
+        assert GeminiAgent().supports_skills() is True
+
     def test_name(self):
         agent = GeminiAgent()
         assert agent.name == "gemini"
